@@ -44,18 +44,15 @@ end
 --[[ Base Events  ]]--
 -----------------------------------------------------------
 
--- When resource starts, we load all the items from the database
--- The reason is that we want to get their data for displays such as labels.
-AddEventHandler('onResourceStart', function(resourceName)
+AddEventHandler('onResourceStop', function(resourceName)
   if (GetCurrentResourceName() ~= resourceName) then
     return
   end
 
-  ProtectedPlayers = nil
+  ProtectedPlayers   = nil
   BlacklistedPlayers = nil
 
 end)
-
 
 -----------------------------------------------------------
 --[[ Events  ]]--
@@ -222,4 +219,5 @@ if Config.NewCharacterSafeDuration > 0 then
   end)
 
 end
+
 
