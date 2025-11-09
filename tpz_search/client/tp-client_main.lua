@@ -14,7 +14,7 @@ function GetPlayerData()
 end
 
 -----------------------------------------------------------
---[[ Base Events & Threads ]]--
+--[[ Base Events ]]--
 -----------------------------------------------------------
 
 RegisterNetEvent("tpz_search:client:setSearchingState")
