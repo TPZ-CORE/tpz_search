@@ -27,14 +27,6 @@ Config.SearchByJobsOnly = false -- {'police', 'detective' }
 -- What jobs cannot be searched by others?
 Config.BlacklistedJobs = { 'police', 'medic', 'detective' }
 
--- If an option @allow is false, the bypassjobs are always allowed.
-Config.StealByPlayers = { 
-    Cash    = { allow = true,  bypassjobs = { 'police', 'detective'} }, 
-    Gold    = { allow = true,  bypassjobs = { 'police', 'detective'} }, 
-    Items   = { allow = true,  bypassjobs = { 'police', 'detective'} }, 
-    Weapons = { allow = false, bypassjobs = { 'police', 'detective'} }, 
-}
-
 Config.BlacklistedItems = {
     ['example1'] = true,
 }
@@ -87,3 +79,4 @@ function SendNotification(source, message, notifyType, duration)
     end
   
 end
+
