@@ -1,29 +1,26 @@
 local TPZ    = exports.tpz_core:getCoreAPI()
 local TPZInv = exports.tpz_inventory:getInventoryAPI()
 
-local ProtectedPlayers = {}
+local ProtectedPlayers   = {}
 local BlacklistedPlayers = {} -- returns the players who are already getting searched by other players.
 
 -----------------------------------------------------------
---[[ Functions  ]]--
+--[[ Local Functions  ]]--
 -----------------------------------------------------------
 
------------------------------------------------------------
---[[ Base Events  ]]--
------------------------------------------------------------
+local function GetPlayerData(source)
+	local _source = source
+    local xPlayer = TPZ.GetPlayer(_source)
 
--- When resource starts, we load all the items from the database
--- The reason is that we want to get their data for displays such as labels.
-AddEventHandler('onResourceStart', function(resourceName)
-  if (GetCurrentResourceName() ~= resourceName) then
-    return
-  end
+	return {
+    steamName      = GetPlayerName(_source),
+    username       = xPlayer.getFirstName() .. ' ' .. xPlayer.getLastName(),
+		identifier     = xPlayer.getIdentifier(),
+    charIdentifier = xPlayer.getCharacterIdentifier(),
+		job            = xPlayer.getJob(),
+	}
 
-  ProtectedPlayers = nil
-  BlacklistedPlayers = nil
-
-end)
-
+end
 
 local ContainsValue = function(table, value)
 
@@ -42,6 +39,23 @@ local ContainsValue = function(table, value)
   return false
 
 end
+
+-----------------------------------------------------------
+--[[ Base Events  ]]--
+-----------------------------------------------------------
+
+-- When resource starts, we load all the items from the database
+-- The reason is that we want to get their data for displays such as labels.
+AddEventHandler('onResourceStart', function(resourceName)
+  if (GetCurrentResourceName() ~= resourceName) then
+    return
+  end
+
+  ProtectedPlayers = nil
+  BlacklistedPlayers = nil
+
+end)
+
 
 -----------------------------------------------------------
 --[[ Events  ]]--
@@ -84,6 +98,8 @@ AddEventHandler("tpz_search:server:search", function(targetId)
   local coords2 = GetEntityCoords(GetPlayerPed(_tsource))
 
   if #(coords1 - coords2) > 10.0 then 
+
+    local PlayerData = GetPlayerData(_source)
 
     if Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Enabled then
 
