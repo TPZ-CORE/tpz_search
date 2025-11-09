@@ -18,11 +18,12 @@ AddEventHandler('onResourceStart', function(resourceName)
   if (GetCurrentResourceName() ~= resourceName) then
     return
   end
-  
+
   ProtectedPlayers = nil
   BlacklistedPlayers = nil
 
 end)
+
 
 local ContainsValue = function(table, value)
 
@@ -78,6 +79,24 @@ AddEventHandler("tpz_search:server:search", function(targetId)
   local xJob            = xPlayer.getJob()
 
   local isAllowed       = true 
+
+  local coords1 = GetEntityCoords(GetPlayerPed(_source))
+  local coords2 = GetEntityCoords(GetPlayerPed(_tsource))
+
+  if #(coords1 - coords2) > 10.0 then 
+
+    if Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Enabled then
+
+      local _w, _c = Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Url, Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Color
+
+      local description = 'The specified user attempted to use devtools / injection or netbug cheat on mining reward.'
+      TPZ.SendToDiscordWithPlayerParameters(_w, Locales['DEVTOOLS_INJECTION_DETECTED_TITLE_LOG'], _source, PlayerData.steamName, PlayerData.username, PlayerData.identifier, PlayerData.charIdentifier, description, _c)
+    end
+    
+    --xPlayer.disconnect(Locales['DEVTOOLS_INJECTION_DETECTED'])
+    xPlayer.ban(Locales['DEVTOOLS_INJECTION_DETECTED'], -1)
+    return
+  end
 
   if Config.SearchByJobsOnly ~= false and TPZ.GetTableLength(Config.SearchByJobsOnly) > 0 then
     isAllowed = ContainsValue(Config.SearchByJobsOnly, xJob)
@@ -187,5 +206,3 @@ if Config.NewCharacterSafeDuration > 0 then
   end)
 
 end
-
-
