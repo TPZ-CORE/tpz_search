@@ -2,7 +2,7 @@ local TPZ = exports.tpz_core:getCoreAPI()
 
 local PlayerData = { 
     IsSearching = false,
-    IsSearchingId = 0,
+    IsSearchingId = -1,
 }
 
 -----------------------------------------------------------
