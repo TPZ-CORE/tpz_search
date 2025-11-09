@@ -18,7 +18,9 @@ AddEventHandler('onResourceStart', function(resourceName)
   if (GetCurrentResourceName() ~= resourceName) then
     return
   end
-
+    
+  ProtectedPlayers = nil
+  BlacklistedPlayers = nil
 
 end)
 
@@ -186,3 +188,4 @@ if Config.NewCharacterSafeDuration > 0 then
   end)
 
 end
+
