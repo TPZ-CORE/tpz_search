@@ -42,6 +42,10 @@ function GetPromptData()
     return Prompts, PromptsList
 end
 
+--[[-------------------------------------------------------
+ Other
+]]---------------------------------------------------------
+
 GetNearestPlayers = function(distance)
 	local closestDistance = distance
 	local playerPed = PlayerPedId()
@@ -61,4 +65,5 @@ GetNearestPlayers = function(distance)
 		end
 	end
 	return closestPlayers
+
 end
