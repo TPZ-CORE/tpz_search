@@ -12,3 +12,11 @@
 1. When opening the zip file, open `tpz_search-main` directory folder and inside there will be another directory folder which is called as `tpz_search`, this directory folder is the one that should be exported to your resources (The folder which contains `fxmanifest.lua`).
 
 2. Add `ensure tpz_search` after the **REQUIREMENTS** in the resources.cfg or server.cfg, depends where your scripts are located.
+
+# Development API
+
+```lua
+-- @param state (boolean) : Requires the state if the player is having hands up (surrendering) and when not, with this way, the system will check
+-- if a player is surrendering or not so the players can search this person.
+TriggerEvent("tpz_search:client:setSurrenderingState", state) -- CLIENT EVENT (CLIENT > CLIENT EXAMPLE)
+```
