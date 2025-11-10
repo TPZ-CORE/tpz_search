@@ -11,6 +11,7 @@ Config.CheckNearestPlayersDistance = 1.5
 Config.SearchDead       = false
 Config.SearchHogtie     = true
 Config.SearchHandcuffed = true
+Config.SearchHandsUp    = true
 
 -- For how long should a new character be safe?
 -- Set to 0 for disabling this option.
@@ -101,3 +102,4 @@ Config.Webhooks = {
     },
 
 }
+
