@@ -3,6 +3,7 @@ local TPZ = exports.tpz_core:getCoreAPI()
 local PlayerData = { 
     IsSearching = false,
     IsSearchingId = -1,
+    IsSurrendering = false,
 }
 
 -----------------------------------------------------------
@@ -14,7 +15,7 @@ function GetPlayerData()
 end
 
 -----------------------------------------------------------
---[[ Events ]]--
+--[[ Base Events & Threads ]]--
 -----------------------------------------------------------
 
 RegisterNetEvent("tpz_search:client:setSearchingState")
@@ -41,6 +42,12 @@ AddEventHandler('tpz_inventory:setSecondaryInventoryOpenState', function(cb)
     end
 
 end)
+
+RegisterNetEvent("tpz_search:client:setSurrenderingState")
+AddEventHandler("tpz_search:client:setSurrenderingState", function(state)
+    PlayerData.IsSurrendering = state
+end)
+
 
 -----------------------------------------------------------
 --[[ Threads ]]--
@@ -112,7 +119,7 @@ Citizen.CreateThread(function()
 
                     local canSearch = false
 
-                    if (Config.SearchHogtie and hogtied) or (Config.SearchHandcuffed and handcuffed) or (Config.SearchDead and isDead) then 
+                    if (Config.SearchHogtie and hogtied) or (Config.SearchHandcuffed and handcuffed) or (Config.SearchDead and isDead) or (Config.SearchHandsUp and PlayerData.IsSurrendering) then 
                         canSearch = true
                     end
     
