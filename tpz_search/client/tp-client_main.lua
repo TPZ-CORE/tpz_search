@@ -84,6 +84,8 @@ Citizen.CreateThread(function()
                 PlayerData.IsSearching = false
                 PlayerData.IsSearchingId = -1
 
+                TPZ.SetBusy("tpz_search", false)
+
                 local sex = IsPedMale(player) and 'male' or 'female'
 
                 if Config.PlaySearchAnimation.Enabled then
