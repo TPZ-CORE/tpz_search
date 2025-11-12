@@ -21,7 +21,6 @@ end
 RegisterNetEvent("tpz_search:client:setSearchingState")
 AddEventHandler("tpz_search:client:setSearchingState", function(state)
     PlayerData.IsSearching = state
-    TPZ.SetBusy("tpz_search", state)
 end)
 
 RegisterNetEvent('tpz_inventory:setSecondaryInventoryOpenState')
