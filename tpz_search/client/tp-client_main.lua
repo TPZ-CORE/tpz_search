@@ -21,6 +21,7 @@ end
 RegisterNetEvent("tpz_search:client:setSearchingState")
 AddEventHandler("tpz_search:client:setSearchingState", function(state)
     PlayerData.IsSearching = state
+    TPZ.SetBusy("tpz_search", state)
 end)
 
 RegisterNetEvent('tpz_inventory:setSecondaryInventoryOpenState')
@@ -31,6 +32,8 @@ AddEventHandler('tpz_inventory:setSecondaryInventoryOpenState', function(cb)
         TriggerServerEvent("tpz_search:server:reset_searched_target", PlayerData.IsSearchingId)
         PlayerData.IsSearching = false
         PlayerData.IsSearchingId = -1
+
+        TPZ.SetBusy("tpz_search", false)
 
         local sex = IsPedMale(player) and 'male' or 'female'
 
@@ -46,6 +49,7 @@ end)
 RegisterNetEvent("tpz_search:client:setSurrenderingState")
 AddEventHandler("tpz_search:client:setSurrenderingState", function(state)
     PlayerData.IsSurrendering = state
+    TPZ.SetBusy("tpz_search", state)
 end)
 
 
@@ -67,6 +71,7 @@ Citizen.CreateThread(function()
         local coords         = GetEntityCoords(player)
 
         local length         = TPZ.GetTableLength(closestPlayers)
+        local isBusy         = TPZ.IsPlayerBusy()
 
         if PlayerData.IsSearching and PlayerData.IsSearchingId ~= -1 then 
             
@@ -92,7 +97,7 @@ Citizen.CreateThread(function()
             goto END
         end
 
-        if length <= 0 or PlayerData.IsSearching then 
+        if isBusy or length <= 0 or PlayerData.IsSearching then 
             goto END
         end
 
