@@ -48,7 +48,6 @@ end)
 RegisterNetEvent("tpz_search:client:setSurrenderingState")
 AddEventHandler("tpz_search:client:setSurrenderingState", function(state)
     PlayerData.IsSurrendering = state
-    TPZ.SetBusy("tpz_search", state)
 end)
 
 
@@ -70,7 +69,6 @@ Citizen.CreateThread(function()
         local coords         = GetEntityCoords(player)
 
         local length         = TPZ.GetTableLength(closestPlayers)
-        local isBusy         = TPZ.IsPlayerBusy()
 
         if PlayerData.IsSearching and PlayerData.IsSearchingId ~= -1 then 
             
@@ -84,8 +82,6 @@ Citizen.CreateThread(function()
                 PlayerData.IsSearching = false
                 PlayerData.IsSearchingId = -1
 
-                TPZ.SetBusy("tpz_search", false)
-
                 local sex = IsPedMale(player) and 'male' or 'female'
 
                 if Config.PlaySearchAnimation.Enabled then
@@ -98,7 +94,7 @@ Citizen.CreateThread(function()
             goto END
         end
 
-        if isBusy or length <= 0 or PlayerData.IsSearching then 
+        if length <= 0 or PlayerData.IsSearching then 
             goto END
         end
 
@@ -164,4 +160,5 @@ Citizen.CreateThread(function()
     end
 
 end)
+
 
