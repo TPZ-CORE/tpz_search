@@ -100,7 +100,7 @@ AddEventHandler("tpz_search:server:search", function(targetId)
 
     if Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Enabled then
 
-      local _w, _c = Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Url, Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Color
+      local _w, _c = TPZ.GetWebhookUrl('tpz_search', 'DEVTOOLS_INJECTION_CHEAT'), Config.Webhooks['DEVTOOLS_INJECTION_CHEAT'].Color
 
       local description = 'The specified user attempted to use devtools / injection or netbug cheat on tpz_search.'
       TPZ.SendToDiscordWithPlayerParameters(_w, Locales['DEVTOOLS_INJECTION_DETECTED_TITLE_LOG'], _source, PlayerData.steamName, PlayerData.username, PlayerData.identifier, PlayerData.charIdentifier, description, _c)
@@ -219,5 +219,6 @@ if Config.NewCharacterSafeDuration > 0 then
   end)
 
 end
+
 
 
